@@ -26,6 +26,18 @@ const firstNum = firstElement<Number>
 
 console.log(firstElement([1, 'a', {}, 2]))
 
+export function longest<T extends { length: Number }>(a: T, b: T) {
+  if (a.length >= b.length) return a
+
+  return b
+}
+
+const longestNumOrString = longest<String | Number[]>
+
+console.log(longest([0, 3], [0, 9, 0]))
+console.log(longest('car', 'logger'))
+console.log(longestNumOrString([1, 2], 'logger'))
+
 // --- Examples ---
 // Uncomment to test your implementation:
 
