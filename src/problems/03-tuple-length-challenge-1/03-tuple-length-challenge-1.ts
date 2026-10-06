@@ -31,3 +31,12 @@ type cases = [
   // @ts-expect-error strings are not valid tuples
   Length<'hello world'>,
 ]
+
+type MessageOf<T extends { message: unknown }> = T['message']
+
+interface Email {
+  message: string
+  id: string
+}
+
+type EmailMessageContents = MessageOf<Email>
