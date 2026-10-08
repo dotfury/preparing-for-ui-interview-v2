@@ -6,16 +6,14 @@ export function deepEquals(a: any, b: any, cache = new Map()): boolean {
   if (a === b || (cache.has(a) && cache.get(a) === b)) {
     return true
   }
-  // if (!a || !b) return false
-
-  const [typeA, typeB] = [detectType(a), detectType(b)]
-
-  if (typeA !== typeB) return false
 
   // test if object or primitive
   if (typeof a !== 'object') {
     return a === b
   }
+  const [typeA, typeB] = [detectType(a), detectType(b)]
+
+  if (typeA !== typeB) return false
 
   const [keysA, keysB] = [new Set(Object.keys(a)), new Set(Object.keys(b))]
 
