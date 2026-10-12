@@ -39,6 +39,7 @@ const each = (target: TCollection, callback: (value: any, key?: string | number)
     Object.entries(target).forEach(([key, val]) => callback(val, key))
   }
 }
+
 export function deepClone<T>(value: T, cache = new Map()): T {
   const type = getType(value)
   if (cache.has(value)) {

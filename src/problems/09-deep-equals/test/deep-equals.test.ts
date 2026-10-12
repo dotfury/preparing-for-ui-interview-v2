@@ -280,7 +280,7 @@ implementations.forEach(({ name, fn }) => {
           const b: any = {}
           const c: any = {}
 
-          b.self = c
+          b.self = b
           c.self = b
 
           expect(deepEquals(a, b)).toBe(true)
