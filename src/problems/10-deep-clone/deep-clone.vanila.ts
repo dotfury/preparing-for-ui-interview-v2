@@ -30,7 +30,7 @@ function entries(target: TCollection): Iterable<[key: any, value: any]> {
 
 function set(target: TCollection, key: any, value: any) {
   if (target instanceof Map) {
-    return target.entries()
+    return target.set(key, value)
   } else if (target instanceof Set) {
     return target.add(value)
   } else if (target instanceof Array) {
