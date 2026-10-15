@@ -42,7 +42,7 @@ export const stringify = (a: any, cache = new Set()): string => {
     case 'object':
     case 'map': {
       cache.add(a)
-      const entries = a instanceof Map ? a.entries : Object.entries(a)
+      const entries = a instanceof Map ? a.entries() : Object.entries(a)
       const content = Array.from(entries)
         .map(([key, value]) => `${key}: ${stringify(value, cache)}`)
         .join(',')
