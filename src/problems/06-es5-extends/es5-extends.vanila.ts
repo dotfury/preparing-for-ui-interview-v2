@@ -3,12 +3,10 @@
 export const myExtends = (SuperType: Function, SubType: Function) => {
   function MyType(...args: any[]) {
     const obj = Object.create(SubType.prototype)
-    console.log('OBJ: ', obj)
 
     SuperType.apply(obj, args)
     SubType.apply(obj, args)
 
-    console.log('OBJ2: ', obj)
     return obj
   }
 
@@ -44,7 +42,5 @@ console.log(dog.name) // Expected: "Rex"
 console.log(dog.breed) // Expected: "Labrador"
 console.log(dog.greet()) // Expected: "Hello, Rex"
 console.log(dog.bark()) // Expected: "Rex says Woof!"
-console.log(dog instanceof Animal); // Expected: "Animal"
-
-
-(DogExtended as any).print()
+console.log(dog instanceof Animal) // Expected: "Animal"
+;(DogExtended as any).print()
