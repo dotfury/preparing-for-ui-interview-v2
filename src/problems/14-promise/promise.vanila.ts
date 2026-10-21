@@ -94,7 +94,26 @@ export class MyPromise<T> {
     }
   }
 
-  execute = () => {}
+  execute = () => {
+    for (const { onFulfilled, onRejected, resolve, reject } of this.handlers) {
+      const handler = this.status === FULFILLED ? onFulfilled : onRejected
+
+      queueMicrotask(() => {
+        try {
+          const value = handler(this.value)
+          if (value instanceof MyPromise) {
+            value.then(resolve, reject)
+          } else {
+            resolve(value)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      })
+    }
+
+    this.handlers = []
+  }
 
   resolve = (value: T | PromiseLike<T>) => {
     this.#settle(value)
@@ -107,11 +126,13 @@ export class MyPromise<T> {
   catch<R>(onRejected: OnRejected<R>) {
     return this.then(null, onRejected)
   }
-  static resolve() {
-    throw new Error('Not implemented')
+
+  static resolve<T>(value: T) {
+    return new MyPromise<T>((resolve) => resolve(value))
   }
-  static reject() {
-    throw new Error('Not implemented')
+
+  static reject<R>(value: R) {
+    return new MyPromise<R>((_, reject) => reject(value))
   }
 }
 
